@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mock Test - IIT Question Paper</title>
+  <style>
+    :root {
+      --primary: #0f172a;
+      --secondary: #1e293b;
+      --accent: #3b82f6;
+      --success: #22c55e;
+      --light: #f1f5f9;
+      --white: #ffffff;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--light);
+    }
+    header {
+      background: var(--primary);
+      color: var(--white);
+      padding: 16px 30px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    footer {
+      background: var(--secondary);
+      color: var(--light);
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+    .container {
+      max-width: 700px;
+      background: var(--white);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin: 40px auto;
+    }
+    .timer {
+      text-align: right;
+      color: var(--accent);
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .question {
+      font-size: 20px;
+      margin-bottom: 15px;
+      font-weight: 500;
+    }
+    .options label {
+      display: block;
+      background: var(--light);
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      border: 1px solid #cbd5e1;
+    }
+    .options input[type="radio"] {
+      margin-right: 10px;
+    }
+    .navigation {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    #prevBtn, #nextBtn {
+      background-color: var(--accent);
+      color: var(--white);
+    }
+    #prevBtn:disabled, #nextBtn:disabled {
+      background-color: #94a3b8;
+    }
+    #submitBtn {
+      display: block;
+      margin: 30px auto 0;
+      background: var(--success);
+      color: var(--white);
+    }
+    #submitBtn:hover {
+      background: #16a34a;
+    }
+    #result {
+      text-align: center;
+      font-size: 22px;
+      color: var(--primary);
+      margin-top: 30px;
+    }
+    .toast {
+      visibility: hidden;
+      min-width: 250px;
+      background-color: #ff4c4c;
+      color: white;
+      text-align: center;
+      border-radius: 4px;
+      padding: 16px;
+      position: fixed;
+      z-index: 9999;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 30px;
+      font-size: 16px;
+      opacity: 0;
+      transition: opacity 0.5s ease, bottom 0.5s ease;
+    }
+    .toast.show {
+      visibility: visible;
+      opacity: 1;
+      bottom: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    IIT Mock Test Portal
+  </header>
+
+  <div class="container">
+    <div class="timer">Time Left: <span id="timer">01:00</span></div>
+    <div class="question" id="question">Loading...</div>
+    <div class="options" id="options"></div>
+
+    <div class="navigation">
+      <button onclick="prevQuestion()" id="prevBtn" disabled>Previous</button>
+      <button onclick="nextQuestion()" id="nextBtn">Next</button>
+    </div>
+
+    <button id="submitBtn" onclick="submitTest()">Submit Test</button>
+    <div id="result"></div>
+    <div id="toast" class="toast">Time’s up! Submitting your test.</div>
+  </div>
+
+  <footer>
+    &copy; 2025 IIT Mock Portal. All Rights Reserved.
+  </footer>
+
+  <script>
+    const questions = [
+      {
+        question: "What is the capital of India?",
+        options: ["Delhi", "Mumbai", "Kolkata", "Chennai"],
+        answer: "Delhi"
+      },
+      {
+        question: "Which planet is known as the Red Planet?",
+        options: ["Earth", "Venus", "Mars", "Jupiter"],
+        answer: "Mars"
+      },
+      {
+        question: "Who wrote 'Hamlet'?",
+        options: ["Charles Dickens", "Shakespeare", "Keats", "Wordsworth"],
+        answer: "Shakespeare"
+      }
+    ];
+
+    let currentQuestion = 0;
+    let userAnswers = new Array(questions.length).fill(null);
+
+    function showQuestion(index) {
+      const q = questions[index];
+      document.getElementById("question").textContent = q.question;
+
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+      q.options.forEach(opt => {
+        const label = document.createElement("label");
+        const checked = userAnswers[index] === opt ? "checked" : "";
+        label.innerHTML = `<input type="radio" name="option" value="${opt}" ${checked}> ${opt}`;
+        optionsDiv.appendChild(label);
+      });
+
+      document.getElementById("prevBtn").disabled = index === 0;
+      document.getElementById("nextBtn").disabled = index === questions.length - 1;
+    }
+
+    function nextQuestion() {
+      saveAnswer();
+      if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        showQuestion(currentQuestion);
+      }
+    }
+
+    function prevQuestion() {
+      saveAnswer();
+      if (currentQuestion > 0) {
+        currentQuestion--;
+        showQuestion(currentQuestion);
+      }
+    }
+
+    function saveAnswer() {
+      const selected = document.querySelector('input[name="option"]:checked');
+      if (selected) {
+        userAnswers[currentQuestion] = selected.value;
+      }
+    }
+
+    function submitTest() {
+      saveAnswer();
+      let score = 0;
+      questions.forEach((q, i) => {
+        if (userAnswers[i] === q.answer) score++;
+      });
+
+      document.getElementById("result").textContent =
+        `🎉 You scored ${score} out of ${questions.length}`;
+      document.getElementById("submitBtn").disabled = true;
+      document.getElementById("nextBtn").disabled = true;
+      document.getElementById("prevBtn").disabled = true;
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 4000);
+    }
+
+    // Timer logic
+    let timeLeft = 60; // seconds
+    const timerEl = document.getElementById("timer");
+    const countdown = setInterval(() => {
+      const min = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+      const sec = String(timeLeft % 60).padStart(2, '0');
+      timerEl.textContent = `${min}:${sec}`;
+      timeLeft--;
+      if (timeLeft < 0) {
+        clearInterval(countdown);
+        showToast("⏰ Time’s up! Submitting your test.");
+        submitTest();
+      }
+    }, 1000);
+
+    showQuestion(currentQuestion);
+  </script>
+</body>
+</html>
