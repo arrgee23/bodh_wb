@@ -16,6 +16,10 @@ main = Blueprint('main', __name__)
 def index():
     return render_template("index.html")
 
+@main.route("/test1")
+def test1():
+    return render_template("mocktest-env.html")
+
 """
 # Route to display the test
 @app.route("/")
@@ -29,9 +33,7 @@ def index():
     
     return render_template("index.html")
 
-@app.route("/test1")
-def test1():
-    return render_template("mocktest-env.html")
+
 
 
 
