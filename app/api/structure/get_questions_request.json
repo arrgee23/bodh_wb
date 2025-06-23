@@ -1,0 +1,12 @@
+{
+    
+    "subject": "<string> possible values are ['default, 'math', 'physics', 'chemistry', 'all', ']", 
+    "full_marks": "number greater than 0",
+    
+    # these are not required, but if provided, they will be used to filter the questions
+    
+    "question_type": "<string> possible values are ['default', 'mcq', 'short_answer', 'long_answer', 'fill_in_the_blank', 'true_false', 'matching']",
+    "tags": ["string might be thermodynamics, kinematics, integration etc" ],
+    "exam_type": "string"
+    
+}

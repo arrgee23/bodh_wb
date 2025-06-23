@@ -1,0 +1,58 @@
+{
+    "subject": "physics",
+    "full_marks": 10,
+    "paper_type": "mcq",
+    "tags": ["mechanics", "dynamics"],
+    "duration": 60,
+    [
+    {
+        "question_number": 1, 
+        "marks": 2, 
+        "importance_banner": "2024, Jee advanced 2020", 
+        "question_type": "text",
+        "question_text": "A resistance of 2 Ω is connected across one gap of a metre-bridge (the length of the wire is 100 cm) and an unknown resistance, greater than 2 Ω, is connected across the other gap. When these resistances are interchanged, the balance point shifts by 20 cm. Neglecting any corrections, the unknown resistance is",
+        "options": [
+        {
+            "option_label": "A",
+            "option_type": "text",
+            "option_content": "3 Ω"
+        },
+        {
+            "option_label": "B",
+            "option_type": "text",
+            "option_content": "4 Ω"
+        },
+        {
+            "option_label": "C",
+            "option_type": "text",
+            "option_content": "5 Ω"
+        },
+        {
+            "option_label": "D",
+            "option_type": "text",
+            "option_content": "6 Ω"
+        }
+        ]
+    },
+    {
+        "question_number": 3,
+        "marks": 1,
+        "question_type": "text_and_image”,
+        "question_text": "Two particles of mass m each are tied at the ends of a light string of length 2a. The whole system is kept on a frictionless horizontal surface with the string held tight so that each mass is at a distance 'a' from the center P (as shown in the figure). Now, the mid-point of the string is pulled vertically upwards with a small but constant force F. As a result, the particles move towards each other on the surface. The magnitude of acceleration, when the separation between them becomes 2x, is",
+        “image”: {
+        “url”: "cdn.example.com/images/question3.png",
+        }
+        "options": [
+        {
+            "option_label": "A",
+            "option_type": "image",
+            “image”: {
+                “url”: "cdn.example.com/images/question3.png",
+            }
+        },
+        
+        ],
+    }
+    ]
+
+}
