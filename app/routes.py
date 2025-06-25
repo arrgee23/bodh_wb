@@ -6,7 +6,7 @@
 #app = Flask(__name__)
 
 from flask import Blueprint, render_template
-from database_handler import DatabaseHandler
+from app.database_handler import DatabaseHandler
 
 main = Blueprint('main', __name__)
 
@@ -17,7 +17,7 @@ def index():
 @main.route("/test1")
 def test1():
     # read from the database
-    db_handler = DatabaseHandler("v2.db")
+    db_handler = DatabaseHandler("app/v2.db")
     
     try:
         questions = db_handler.form_questions()
@@ -27,5 +27,5 @@ def test1():
             "question": f"Error: {e}",
             "options": ["Please check the database connection."],
             "answer": ""
-    }]
+        }]
     return render_template("mocktest-env.html", questions=questions)
