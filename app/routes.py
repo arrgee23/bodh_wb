@@ -64,7 +64,7 @@ def test1():
     conn = sqlite3.connect("questions.db")
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM questions")
-    questions = cursor.fetchall()
+    questions = form_questions(cursor.fetchall())
     conn.close()
     return render_template("mocktest-env.html", questions=questions)
 
