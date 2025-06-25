@@ -148,24 +148,7 @@
   </footer>
 
   <script>
-    const questions = [
-      {
-        question: "What is the capital of India?",
-        options: ["Delhi", "Mumbai", "Kolkata", "Chennai"],
-        answer: "Delhi"
-      },
-      {
-        question: "Which planet is known as the Red Planet?",
-        options: ["Earth", "Venus", "Mars", "Jupiter"],
-        answer: "Mars"
-      },
-      {
-        question: "Who wrote 'Hamlet'?",
-        options: ["Charles Dickens", "Shakespeare", "Keats", "Wordsworth"],
-        answer: "Shakespeare"
-      }
-    ];
-
+    const questions = {{ questions|tojson }};
     let currentQuestion = 0;
     let userAnswers = new Array(questions.length).fill(null);
 
